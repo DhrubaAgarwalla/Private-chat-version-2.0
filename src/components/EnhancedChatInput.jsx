@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import BasicEmojiPicker from './BasicEmojiPicker';
 import BasicGifPicker from './BasicGifPicker';
+import MusicButton from './MusicButton';
 import {
   Button,
   TextArea,
@@ -153,7 +154,7 @@ const UploadProgressBar = styled.div`
   }
 `;
 
-const EnhancedChatInput = ({ onSendMessage, onSendGif, onSendImage, onSendVideo, onSendVoice, onTyping, partnerStatus }) => {
+const EnhancedChatInput = ({ onSendMessage, onSendGif, onSendImage, onSendVideo, onSendVoice, onTyping, onToggleMusic, partnerStatus }) => {
   const [message, setMessage] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showGifPicker, setShowGifPicker] = useState(false);
@@ -444,6 +445,8 @@ const EnhancedChatInput = ({ onSendMessage, onSendGif, onSendImage, onSendVideo,
         >
           🎤
         </RecordButton>
+
+        <MusicButton onClick={onToggleMusic} />
       </InputToolbar>
 
       {isRecording && (

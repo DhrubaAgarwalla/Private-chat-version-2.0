@@ -26,6 +26,7 @@ import CallInterface from '../components/CallInterface';
 import StatusIndicator from '../components/StatusIndicator';
 import MessageStatus from '../components/MessageStatus';
 import TypingIndicator from '../components/TypingIndicator';
+import SoundCloudPlayer from '../components/SoundCloudPlayer';
 import {
   initializePeer,
   sendCallSignal,
@@ -98,6 +99,9 @@ const Chat = () => {
   const [partnerUserId, setPartnerUserId] = useState(null);
   const [statusSubscription, setStatusSubscription] = useState(null);
   const typingTimeoutRef = useRef(null);
+
+  // Music player state
+  const [showMusicPlayer, setShowMusicPlayer] = useState(false);
 
   // Scroll to bottom of messages
   const scrollToBottom = () => {
@@ -716,6 +720,11 @@ const Chat = () => {
     }
   };
 
+  // Handle toggling music player
+  const handleToggleMusic = () => {
+    setShowMusicPlayer(prev => !prev);
+  };
+
   // Handle typing status
   const handleTyping = (text) => {
     // Update the message text
@@ -916,6 +925,7 @@ const Chat = () => {
             return sendVoiceMessage(roomCode, audioBlob, userId);
           }}
           partnerStatus={partnerStatus}
+          onToggleMusic={handleToggleMusic}
         />
       </ChatInputContainer>
 
@@ -934,6 +944,12 @@ const Chat = () => {
           onToggleVideo={handleToggleVideo}
         />
       )}
+
+      {/* SoundCloud Music Player */}
+      <SoundCloudPlayer
+        visible={showMusicPlayer}
+        onClose={handleToggleMusic}
+      />
     </ChatContainer>
   );
 };
